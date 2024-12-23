@@ -3,11 +3,11 @@ name: stock_data_daily_refresh
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 5 * * *
+    - cron: '0 5 * * *'
 
 jobs:
   test_schedule:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: checkout repo content
         uses: actions/checkout@v2
@@ -15,7 +15,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: '3.12.6'
           
       - name: install python packages
         run: |
@@ -26,4 +26,4 @@ jobs:
         env: 
           DB_URL: ${{ secrets.DB_URL }}
 
-        run: python ./stocks_data_daily_refresh.py
+        run: python ./stock_data_daily_refresh.py
