@@ -41,9 +41,9 @@ def pull_stock_data(stock_symbol:str,start_date:datetime) -> pd.DataFrame:
 # check last updated date for each stock and add data till current date
 master_data = pd.DataFrame()
 for symbol in df.SYMBOL.unique():
-    start_date = df[df.SYMBOL == symbol].DATE.max()
+    start_date = df[df.SYMBOL == symbol].DATE.max().date()
     try:
-        data = pull_stock_data(stock_symbol=symbol,start_date=start_date)
+        data = pull_stock_data(stock_symbol=symbol,start_date=start_date+datetime.timedelta(days=1))
         master_data = pd.concat([master_data,data],axis=0)
     except:
         pass
