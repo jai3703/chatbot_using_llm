@@ -3,7 +3,7 @@ name: stock_data_daily_refresh
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 5 * * *
+    - cron: '0 5 * * *'
 
 jobs:
   test_schedule:
@@ -15,7 +15,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: '3.12.6'
           
       - name: install python packages
         run: |
