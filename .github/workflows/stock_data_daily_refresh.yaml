@@ -26,4 +26,4 @@ jobs:
         env: 
           DB_URL: ${{ secrets.DB_URL }}
 
-        run: python ./stocks_data_daily_refresh.py
+        run: python ./stock_data_daily_refresh.py
