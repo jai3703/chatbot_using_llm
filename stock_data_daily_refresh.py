@@ -41,9 +41,9 @@ def pull_stock_data(stock_symbol:str,start_date:datetime) -> pd.DataFrame:
 # check last updated date for each stock and add data till current date
 master_data = pd.DataFrame()
 for symbol in df.SYMBOL.unique():
-    start_date = df[df.SYMBOL == symbol].DATE.max()
+    start_date = df[df.SYMBOL == symbol].DATE.max().date()
     try:
-        data = pull_stock_data(stock_symbol=symbol,start_date=start_date)
+        data = pull_stock_data(stock_symbol=symbol,start_date=start_date+datetime.timedelta(days=1))
         master_data = pd.concat([master_data,data],axis=0)
     except:
         pass
@@ -55,6 +55,6 @@ try:
    with create_connection_database(db_url).connect() as connection:
     table_name = "nifty_top_500_stocks"
     master_data.to_sql(table_name,create_connection_database(db_url),index=False,if_exists='append')
-    print(f"{len(master_data)} rows successfully added in {table_name}")
+    print(f"{master_data.shape[0]} rows successfully added in {table_name}")
 except Exception as e:
     print(f"Error: {e}")
