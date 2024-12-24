@@ -55,6 +55,6 @@ try:
    with create_connection_database(db_url).connect() as connection:
     table_name = "nifty_top_500_stocks"
     master_data.to_sql(table_name,create_connection_database(db_url),index=False,if_exists='append')
-    print(f"{len(master_data)} rows successfully added in {table_name}")
+    print(f"{master_data.shape[0]} rows successfully added in {table_name}")
 except Exception as e:
     print(f"Error: {e}")
