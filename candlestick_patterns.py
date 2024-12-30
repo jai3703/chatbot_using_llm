@@ -4,7 +4,7 @@ import pandas as pd
 
 
 class CandleStick:
-    def __init__(self, data: dict):
+    def __init__(self, data: pd.DataFrame):
         self.open = data["OPEN"]
         self.close = data["CLOSE"]
         self.high = data["HIGH"]
