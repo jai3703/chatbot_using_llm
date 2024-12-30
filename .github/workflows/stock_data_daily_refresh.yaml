@@ -3,7 +3,7 @@ name: stock_data_daily_refresh
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 11 * * *'
 
 jobs:
   test_schedule:
