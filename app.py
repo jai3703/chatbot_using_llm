@@ -120,7 +120,7 @@ def update_graph(symbol,date):
         fig.add_vline(x=date, line_width=3, line_dash="dash", line_color="green")
         # Update layout for better visualization
         fig.update_layout(
-            title=f'Candlestick Chart with Two Lines for {symbol['value']}',
+            title=f'Candlestick Chart with Two Lines for {symbol["value"]}',
             xaxis_title='Date',
             yaxis_title='Price',
             xaxis_rangeslider_visible=False  # Optionally disable range slider
