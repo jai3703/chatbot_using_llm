@@ -85,10 +85,10 @@ def update_table(value):
     Input('tbl', 'cellClicked'),
     Input('my-date-picker-single', 'date')
 )
-def update_graph(value,date):
+def update_graph(symbol,date):
     fig = go.Figure()
     try:
-        stock_data_filtered = stocks_data[stocks_data.SYMBOL==value['value']]
+        stock_data_filtered = stocks_data[stocks_data.SYMBOL==symbol['value']]
         stock_data_filtered = stock_data_filtered.sort_values(by=['SYMBOL','DATE'])
         stock_data_filtered = ta.moving_average_crossover(stock_data_filtered, 'CLOSE', 25, 50)
         fig.add_trace(go.Candlestick(
@@ -120,7 +120,7 @@ def update_graph(value,date):
         fig.add_vline(x=date, line_width=3, line_dash="dash", line_color="green")
         # Update layout for better visualization
         fig.update_layout(
-            title=f'Candlestick Chart with Two Lines for {value['value']}',
+            title=f'Candlestick Chart with Two Lines for {symbol['value']}',
             xaxis_title='Date',
             yaxis_title='Price',
             xaxis_rangeslider_visible=False  # Optionally disable range slider
@@ -195,5 +195,5 @@ def update_graph(value,date):
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
