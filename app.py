@@ -9,11 +9,9 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import archive.candlestick_patterns_v2 as cp
+# import archive.candlestick_patterns_v2 as cp
 import dash_ag_grid as dag
 import database_connection as db_con
-from datetime import datetime, date
-import dash_mantine_components as dmc
 import dash_bootstrap_components as dbc
 import technical_analysis as ta
 
@@ -21,7 +19,7 @@ import technical_analysis as ta
 stocks_data = db_con.read_table("nifty_top_500_stocks")
 
 app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
-
+server = app.server
 date_element = (
     dcc.DatePickerSingle(
             id="my-date-picker-single",
