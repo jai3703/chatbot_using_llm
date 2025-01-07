@@ -67,7 +67,8 @@ class CandlestickAnalyser:
         """
         Detect hammer and hanging man patterns based on slope and shadow/body ratio.
         """
-        slope = self.determine_slope()
+        #TODO: update defintion of slope, causing runtime error
+        #slope = self.determine_slope()
         
         # Calculate shadow-to-body ratios
         upper_shadow = self.df['HIGH'] - np.maximum(self.df['OPEN'], self.df['CLOSE'])
@@ -76,19 +77,19 @@ class CandlestickAnalyser:
 
         # Define hammer and hanging man conditions
         hammer = (
-            (slope < 0) &  # Negative slope
+            #(slope < 0) &  # Negative slope
             (lower_shadow >= 2 * real_body) &  # Long lower shadow
             (upper_shadow <= real_body)  # Small upper shadow
         )
 
         hanging_man = (
-            (slope > 0) &  # Positive slope
+            #(slope > 0) &  # Positive slope
             (lower_shadow >= 2 * real_body) &  # Long lower shadow
             (upper_shadow <= real_body)  # Small upper shadow
         )
 
         shooting_star = (
-            (slope >0) &  # upward trend
+            #(slope >0) &  # upward trend
             (upper_shadow >= 2 * real_body) &       # Long upper shadow
             (lower_shadow <= 0.1 * real_body) &     # Minimal lower shadow
             (self.df['CLOSE'] < self.df['HIGH'])    # Close below the high
