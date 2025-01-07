@@ -52,8 +52,8 @@ class CandlestickAnalyser:
 
     def determine_slope(self,window=14):
         slopes = []
-        for i in range(len(self) - window + 1):
-            y = self[i:i + window]
+        for i in range(len(self.df['CLOSE']) - window + 1):
+            y = self.df['CLOSE'][i:i + window]
             x = range(len(y))
             slope, _, _, _, _ = linregress(x, y)
             slopes.append(slope)
@@ -67,7 +67,7 @@ class CandlestickAnalyser:
         """
         Detect hammer and hanging man patterns based on slope and shadow/body ratio.
         """
-        slope = self.determine_slope(self.df['CLOSE'])
+        slope = self.determine_slope()
         
         # Calculate shadow-to-body ratios
         upper_shadow = self.df['HIGH'] - np.maximum(self.df['OPEN'], self.df['CLOSE'])
