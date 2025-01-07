@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from scipy.stats import linregress
 
 class CandlestickAnalyser:
     def __init__(self,dataframe:pd.DataFrame):
@@ -49,16 +50,24 @@ class CandlestickAnalyser:
         doji =(abs((self.df['OPEN']-self.df['CLOSE'])) <= .005*self.df['CLOSE'])
         self.add_pattern("doji",doji)
 
-    def determine_slope(self,days=14):
-        # Calculate the slope over the past n days
-        slope = self.df['CLOSE'].rolling(window=days).apply(lambda x: np.polyfit(range(len(x)), x, 1)[0])
-        return slope
+    def determine_slope(self,window=14):
+        slopes = []
+        for i in range(len(self) - window + 1):
+            y = self[i:i + window]
+            x = range(len(y))
+            slope, _, _, _, _ = linregress(x, y)
+            slopes.append(slope)
+        return [None] * (window - 1) + slopes  # Add None for initial values
+
+        # # Calculate the slope over the past n days
+        # slope = self.df['CLOSE'].rolling(window=days).apply(lambda x: np.polyfit(range(len(x)), x, 1)[0])
+        # return slope
 
     def detect_hammer_hanging_man_and_shooting_star(self):
         """
         Detect hammer and hanging man patterns based on slope and shadow/body ratio.
         """
-        slope = self.determine_slope()
+        slope = self.determine_slope(self.df['CLOSE'])
         
         # Calculate shadow-to-body ratios
         upper_shadow = self.df['HIGH'] - np.maximum(self.df['OPEN'], self.df['CLOSE'])
