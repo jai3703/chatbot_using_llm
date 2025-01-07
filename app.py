@@ -13,7 +13,7 @@ from plotly.subplots import make_subplots
 import dash_ag_grid as dag
 import database_connection as db_con
 import dash_bootstrap_components as dbc
-import src.technical_analysis as ta
+import technical_analysis as ta
 
 # Step 1 : Select a timeframe
 stocks_data = db_con.read_table("nifty_top_500_stocks")
